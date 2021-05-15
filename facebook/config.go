@@ -3,7 +3,7 @@ package facebook
 import (
 	"encoding/json"
 	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/google"
+	"golang.org/x/oauth2/facebook"
 	"io/ioutil"
 	"net/http"
 )
@@ -47,6 +47,6 @@ func NewConfig(clientId, clientSecret, redirectUrl string) *oauth2.Config {
 		ClientSecret: clientSecret,
 		RedirectURL:  redirectUrl,
 		Scopes:       scopes,
-		Endpoint:     google.Endpoint,
+		Endpoint:     facebook.Endpoint,
 	}
 }

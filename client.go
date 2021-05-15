@@ -3,6 +3,7 @@ package social
 import (
 	"context"
 	"fmt"
+	"github.com/yansuan/social/facebook"
 	"github.com/yansuan/social/google"
 	"golang.org/x/oauth2"
 )
@@ -51,7 +52,7 @@ func (this *Client) GetUserInfo(code string) (result *UserInfo, err error) {
 	}
 
 	if this.SocialType == Facebook {
-		userinfo, err1 := google.GetUserInfo(this.Token.AccessToken)
+		userinfo, err1 := facebook.GetUserInfo(this.Token.AccessToken)
 		if err1 != nil {
 			err = err1
 			return
