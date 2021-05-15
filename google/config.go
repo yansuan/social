@@ -5,6 +5,7 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -44,7 +45,7 @@ func GetUserInfo(accessToken string) (result *UserInfo, err error) {
 		err = err1
 		return
 	}
-
+	log.Println(string(body))
 	result = &UserInfo{}
 	err = json.Unmarshal(body, result)
 	return
