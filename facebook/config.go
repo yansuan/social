@@ -14,7 +14,7 @@ var (
 )
 
 const (
-	url = "https://graph.facebook.com/me?access_token="
+	url = "https://graph.facebook.com/me?fields=id,name,first_name,last_name,picture,email&access_token="
 )
 
 type UserInfo struct {
