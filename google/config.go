@@ -18,15 +18,19 @@ const (
 	url = "https://www.googleapis.com/oauth2/v2/userinfo?access_token="
 )
 
+/*
+{
+  "id": "12345678",
+  "email": "hchlin@gmail.com",
+  "verified_email": true,
+  "name": "hu chenglin",
+  "given_name": "hu",
+  "family_name": "chenglin",
+  "picture": "https://lh3.googleusercontent.com/a/AATXAJyLI2vOYsq4bGKu_jp_7UKcvdSIyVFZmZ3sTPIv=s96-c",
+  "locale": "zh-CN"
+}
+ */
 type UserInfo struct {
-	//"id": "114512230444013345330",
-	//"email": "wangshubo1989@126.com",
-	//"verified_email": true,
-	//"name": "王书博",
-	//"given_name": "书博",
-	//"family_name": "王",
-	//"picture": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
-	//"locale": "zh-CN"
 	Id            string `json:"id"`
 	Email         string `json:"email"`
 	VerifiedEmail bool   `json:"verified_email"`
@@ -34,6 +38,7 @@ type UserInfo struct {
 	GivenName     string `json:"given_name"`
 	FamilyName    string `json:"family_name"`
 	Picture       string `json:"picture"`
+	Gender        string `json:"gender"`
 	Locale        string `json:"locale"`
 }
 

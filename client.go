@@ -2,7 +2,6 @@ package social
 
 import (
 	"context"
-	"fmt"
 	"github.com/yansuan/social/facebook"
 	"github.com/yansuan/social/google"
 	"golang.org/x/oauth2"
@@ -11,10 +10,11 @@ import (
 type UserInfo struct {
 	Id            string `json:"id"`
 	Email         string `json:"email"`
-	VerifiedEmail bool   `json:"verified_email"`
+	VerifiedEmail bool   `json:"verifiedEmail"`
 	Name          string `json:"name"`
-	GivenName     string `json:"given_name"`
-	FamilyName    string `json:"family_name"`
+	Gender        string `json:"gender"`
+	FirstName     string `json:"firstName"`
+	LastName      string `json:"lastName"`
 	Picture       string `json:"picture"`
 	Locale        string `json:"locale"`
 }
@@ -40,24 +40,45 @@ func (this *Client) GetUserInfo(code string) (result *UserInfo, err error) {
 		return
 	}
 
+	result = &UserInfo{}
+
 	//get user info
 	if this.SocialType == Google {
-		userinfo, err1 := google.GetUserInfo(this.Token.AccessToken)
+		userInfo, err1 := google.GetUserInfo(this.Token.AccessToken)
 		if err1 != nil {
 			err = err1
 			return
 		}
 
-		fmt.Printf("%+v\n", userinfo)
+		result.Id = userInfo.Id
+		result.Email = userInfo.Email
+		result.VerifiedEmail = userInfo.VerifiedEmail
+		result.Gender = userInfo.Gender
+		result.Name = userInfo.Name
+		result.FirstName = userInfo.GivenName
+		result.LastName = userInfo.FamilyName
+		result.Picture = userInfo.Picture
+		return
 	}
 
 	if this.SocialType == Facebook {
-		userinfo, err1 := facebook.GetUserInfo(this.Token.AccessToken)
+		userInfo, err1 := facebook.GetUserInfo(this.Token.AccessToken)
 		if err1 != nil {
 			err = err1
 			return
 		}
-		fmt.Printf("%+v\n", userinfo)
+
+		result.Id = userInfo.Id
+		result.Email = userInfo.Email
+		result.VerifiedEmail = false
+		result.Gender = userInfo.Gender
+		result.Name = userInfo.Name
+		result.FirstName = userInfo.FirstName
+		result.LastName = userInfo.LastName
+		if userInfo.Picture != nil {
+			result.Picture = userInfo.Picture.Data.URL
+		}
+		return
 	}
 
 	return

@@ -5,7 +5,6 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/facebook"
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -18,14 +17,24 @@ const (
 )
 
 type UserInfo struct {
-	Id            string `json:"id"`
-	Email         string `json:"email"`
-	VerifiedEmail bool   `json:"verified_email"`
-	Name          string `json:"name"`
-	GivenName     string `json:"given_name"`
-	FamilyName    string `json:"family_name"`
-	Picture       string `json:"picture"`
-	Locale        string `json:"locale"`
+	Id        string   `json:"id"`
+	Name      string   `json:"name"`
+	Email     string   `json:"email"`
+	Birthday  string   `json:"birthday"`
+	Gender    string   `json:"gender"`
+	FirstName string   `json:"first_name"`
+	LastName  string   `json:"last_name"`
+	Picture   *Picture `json:"picture,omitempty"`
+}
+
+// Picture structure
+type Picture struct {
+	Data struct {
+		Height       int    `json:"height"`
+		IsSilhouette bool   `json:"is_silhouette"`
+		URL          string `json:"url"`
+		Width        int    `json:"width"`
+	} `json:"data"`
 }
 
 func GetUserInfo(accessToken string) (result *UserInfo, err error) {
@@ -36,8 +45,6 @@ func GetUserInfo(accessToken string) (result *UserInfo, err error) {
 		err = err1
 		return
 	}
-
-	log.Println(string(body))
 
 	result = &UserInfo{}
 	err = json.Unmarshal(body, result)
