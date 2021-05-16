@@ -2,9 +2,11 @@ package google
 
 import (
 	"encoding/json"
+	"github.com/yansuan/social/g"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -48,6 +50,10 @@ func GetUserInfo(accessToken string) (result *UserInfo, err error) {
 	if err1 != nil {
 		err = err1
 		return
+	}
+
+	if g.Debug {
+		log.Println(string(body))
 	}
 
 	result = &UserInfo{}

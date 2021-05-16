@@ -17,14 +17,6 @@ const (
 	Google
 )
 
-const (
-	Version = "1.0.5"
-)
-
-var (
-	Debug = false
-)
-
 func (t Type) String() string {
 	switch t {
 	case Facebook:
