@@ -2,6 +2,7 @@ package social
 
 import (
 	"github.com/yansuan/social/facebook"
+	"github.com/yansuan/social/g"
 	"github.com/yansuan/social/google"
 	"golang.org/x/oauth2"
 	"log"
@@ -42,4 +43,8 @@ func New(socialType Type, clientId, clientSecret, redirectUrl string) (c *Client
 	c.Config = config
 	c.SocialType = socialType
 	return
+}
+
+func Debug(isDebug bool) {
+	g.Debug = isDebug
 }
